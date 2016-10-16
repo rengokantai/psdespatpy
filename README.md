@@ -18,7 +18,45 @@ assert s1 is s2
 s1.ans=1
 print('same object')
 ```
+logger_classic.py
+```
+import datetime
 
+class Logger(object):
+    log_file = None
+    
+    
+    #same as above program, using _instance
+    @staticmethod
+    def instance():
+        if  '_instance' not in Logger.__dict__:
+             Logger._instance = Logger()
+        return Logger._instance
+
+    def open_log(self, path):
+        self.log_file = open(path,mode='w')
+
+    def write_log(self, log_record):
+        now = str(datetime.datetime.now())
+        record = '%s: %s' % (now, log_record)
+        self.log_file.write(record)
+    
+    def close_log(self):
+        self.log_file.close()
+
+logger = Logger.instance()
+logger.open_log('ke.log')
+logger.write_log('Logging..')
+logger.close_log()
+
+with open('ke.log', 'r') as f:
+    for line in f:
+        print(line)
+
+```
+Disadvantages:
+- Violates single responsibility principle
+- Non-standard class access
 ##7. The Builder Pattern
 ###1 Introduction to the Builder Pattern
 ####Classification: creational  
