@@ -57,6 +57,45 @@ with open('ke.log', 'r') as f:
 Disadvantages:
 - Violates single responsibility principle
 - Non-standard class access
+
+###3 Demo 2: Building a Singleton Base Class
+singleton_base.py, can create as many singletons as we need
+```
+class Singleton(object):
+    _instances = {}     # dict([cls, instance])
+
+    def __new__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__new__(cls)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+```
+logger_base.py
+```
+import datetime
+from singleton_base import Singleton
+
+class Logger(Singleton):
+    log_file = None
+
+    def __init__(self, path):
+        if self.log_file is None:
+            self.log_file = open(path,mode='w')
+
+    def write_log(self, log_record):
+        now = str(datetime.datetime.now())
+        record = '%s: %s\n' % (now, log_record)
+        self.log_file.write(record)
+
+    def close_log(self):
+        self.log_file.close() 
+        self.log_file = None       
+
+```
+
+
+
+
 ##7. The Builder Pattern
 ###1 Introduction to the Builder Pattern
 ####Classification: creational  
