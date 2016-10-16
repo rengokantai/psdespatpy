@@ -92,9 +92,45 @@ class Logger(Singleton):
         self.log_file = None       
 
 ```
+###4 Demo 3: Singleton as a Meta Class
+Metaclass:
+- class is an instance of metaclass  
 
+singleton_meta.py
+```
+import datetime
 
+class Singleton(type):
+    _instances = {}
 
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances: 
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+```
+logger_meta.py
+```
+import datetime
+from singleton_meta import Singleton
+
+class Logger(metaclass=Singleton):
+    log_file = None
+
+    def __init__(self, path):
+        if self.log_file is None:
+            self.log_file = open(path,mode='w')
+
+    def write_log(self, log_record):
+        now = str(datetime.datetime.now())
+        record = '%s: %s\n' % (now, log_record)
+        self.log_file.write(record)
+
+    def close_log(self):
+        self.log_file.close() 
+        self.log_file = None       
+
+```
 
 ##7. The Builder Pattern
 ###1 Introduction to the Builder Pattern
