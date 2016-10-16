@@ -1,7 +1,30 @@
 # psdespatpy
+##6. The Singleton Pattern
+###1 Introduction to Singleton
+Classification: creational 
+###2 Demo 1: Logger Example and Introduction
+singleton_classic.py
+```
+class SingleTon(object):
+  ans = None
+  @staticmethod
+  def instance():
+    if '_instance' not in Singleton.__dict__:
+      Singleton._instance = Singleton()
+    return Singleton._instance
+s1 = Singleton.instance()
+s2 = Singleton.instance()
+assert s1 is s2
+s1.ans=1
+print('same object')
+```
+
 ##7. The Builder Pattern
 ###1 Introduction to the Builder Pattern
-Classification: creational  
+####Classification: creational  
+Ensure a class has one instance  
+Control access to limited resource  
+
 seperate construction of an object from its representation.
 Encapsulate object construction  
 Multistep construction process  
