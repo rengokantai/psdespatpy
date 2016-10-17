@@ -1,4 +1,10 @@
 # psdespatpy
+##5. The Command Pattern
+###1 Overview and Motivating Example
+Classification: creational  
+create undoable operations and macros
+encapsulate a request as an object
+###2 Demo 1: Initial Attempt
 ##6. The Singleton Pattern
 ###1 Introduction to Singleton
 Classification: creational 
